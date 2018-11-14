@@ -41,7 +41,7 @@ public class FreeBoard {
 	private LocalDateTime updatedate;
 	
 	//종속관계
-	@OneToMany(mappedBy="board", cascade=CascadeType.ALL, fetch=FetchType.EAGER) //리플라이즈는 보드에 매여있다. 리플라이에 보드_bno가 생김
+	@OneToMany(mappedBy="board", cascade=CascadeType.ALL) //리플라이즈는 보드에 매여있다. 리플라이에 보드_bno가 생김
 	private List<FreeReply> replies;
 	
 

@@ -1,5 +1,6 @@
 package org.zerock;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -7,8 +8,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.zerock.domain.FreeBoard;
@@ -32,6 +36,19 @@ public class Test3 {
 	
 	@Setter(onMethod_=@Autowired)
 	private ReplyRepository replyRepository;
+	
+	//보드,댓글 조인
+	@Test
+	public void testListQuery() {
+		
+		Pageable pageable =  PageRequest.of(0, 10,Sort.DEFAULT_DIRECTION.DESC,"bno");
+		Page<Object[]> result = boardRepository.listPage(pageable);
+		
+		log.info("" + result);
+		
+		result.getContent().forEach(arr->
+		log.info(""+Arrays.toString(arr)));
+	}
 	
 	@Test
 	public void testList() {
